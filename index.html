@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="description" content="GeoVerse Journey — an interactive 3D career timeline through GIS, geospatial engineering, cloud architecture, data and GeoAI."/>
+<meta name="theme-color" content="#103b44"/>
+<title>GeoVerse Journey · Faizan Tayyab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+#bootLoader{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:radial-gradient(ellipse at 48% 40%,#245967 0%,#133b48 50%,#071c2d 100%);color:#fff4db;font-family:system-ui,sans-serif;transition:opacity .65s ease,visibility .65s ease}#bootLoader.complete{opacity:0;visibility:hidden;pointer-events:none}.boot-card{width:min(460px,86vw);text-align:center}.boot-mark{display:inline-grid;place-items:center;width:75px;height:75px;border-radius:23px;background:linear-gradient(135deg,#78cbb9,#eecb8d,#c18edb);color:#1d4251;font-size:38px;box-shadow:0 20px 60px #0005}.boot-kicker{display:block;letter-spacing:.25em;font-size:10px;font-weight:800;color:#a9ddd0;margin:25px 0 12px}.boot-title{margin:0 0 8px;font-size:clamp(26px,5vw,42px);letter-spacing:-.055em}.boot-desc{margin:0 0 30px;font-size:13px;line-height:1.65;color:#bad5d5}.boot-track{height:9px;border-radius:100px;background:#ffffff2a;border:1px solid #ffffff30;overflow:hidden}.boot-fill{height:100%;width:4%;border-radius:100px;background:linear-gradient(90deg,#67cdb9,#eed090,#d4a4e8);transition:width .35s ease;box-shadow:0 0 21px #8ad8c377}.boot-meta{display:flex;justify-content:space-between;margin-top:13px;color:#b5dcda;font-size:11px;font-weight:700;gap:16px;text-align:left}.boot-meta strong{color:#fff0cb;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+ <div id="bootLoader" role="status" aria-live="polite" aria-label="Loading the 3D GeoVerse world">
+  <div class="boot-card"><span class="boot-mark">✺</span><span class="boot-kicker">GEOVERSE JOURNEY · FAIZAN TAYYAB</span><h1 class="boot-title">Your world is taking shape.</h1><p class="boot-desc">Raising terrain, drawing contours and preparing your career worlds.</p><div class="boot-track" role="progressbar" aria-label="World loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="4" id="bootProgress"><div class="boot-fill" id="bootFill"></div></div><div class="boot-meta"><span id="bootDetail">Loading the experience…</span><strong id="bootPercent">4%</strong></div></div>
+ </div>
+ <script>window.addEventListener('error',function(){var b=document.getElementById('bootDetail');if(b && !document.getElementById('bootLoader').classList.contains('complete'))b.textContent='Unable to load a required asset. Check your connection and reload.'});window.addEventListener('unhandledrejection',function(){var b=document.getElementById('bootDetail');if(b && !document.getElementById('bootLoader').classList.contains('complete'))b.textContent='The 3D scene failed to initialize. Reload to retry.'});</script>
+ <main class="experience" id="app">
+  <div id="scene" aria-label="Interactive three-dimensional career world"></div>
+  <div id="grain"></div>
+  <div class="floating-vignette"></div>
+
+  <header class="app-header">
+   <button class="brand" id="homeBtn" title="Return to the welcome plaza" aria-label="Return to welcome plaza">
+    <span class="brand-mark"><span>G</span><span class="brand-spark">✳</span></span>
+    <span class="brand-copy"><strong>GEOVERSE<span>®</span></strong><small>THE CAREER JOURNEY</small></span>
+   </button>
+   <nav class="topnav" aria-label="Main navigation">
+    <button id="tourBtn"><span class="nav-icon">◉</span> Guided tour</button>
+    <button id="mapModeBtn"><span class="nav-icon">◈</span> Atlas view</button>
+    <button id="showWorldsBtn"><span class="nav-icon">✦</span> Worlds</button>
+    <button id="archiveBtn"><span class="nav-icon">▣</span> The CV Vault</button>
+    <button class="nav-connect" id="headerContactBtn">Let's connect <span>↗</span></button>
+   </nav>
+   <button id="menuBtn" class="mobile-menu" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">☰</button>
+  </header>
+
+  <aside class="left-intro" id="leftIntro">
+    <div class="eyebrow"><span class="eyebrow-line"></span> AN INTERACTIVE CAREER STORY</div>
+    <h1>A colorful career.<br/><em>Many worlds.</em></h1>
+    <p>Travel from campus to companies, explore role stories, discover qualifications, and find a London phone box to say hello.</p>
+    <button class="primary-action" id="startBtn">Start the journey <span class="circle-arrow">↗</span></button>
+    <div class="micro-note"><span class="pulse-dot"></span> INTERACTIVE 3D EXPERIENCE <span class="micro-rule"></span> 2001 — TODAY</div>
+  </aside>
+
+  <section class="world-status" aria-live="polite">
+   <div class="world-status-icon" id="statusIcon">◎</div>
+   <div><small id="statusKicker">NOW EXPLORING</small><strong id="statusName">The Welcome Plaza</strong><span id="statusYear">A world of connected ideas</span></div>
+   <div class="status-signal"><i></i><i></i><i></i></div>
+  </section>
+
+  <aside class="world-selector" id="worldSelector" aria-label="Domain worlds">
+   <div class="panel-overline">DISCOVER SIX WORLDS</div>
+   <div id="worldButtons" class="world-buttons"></div>
+  </aside>
+
+  <section class="story-card" id="storyCard" aria-label="Experience details" aria-live="polite" hidden>
+   <div class="story-topline"><span id="storyCategory">CAREER MILESTONE</span><button id="closeStory" aria-label="Close details">×</button></div>
+   <div class="story-counter" id="storyCounter">CHAPTER 01 / 12</div>
+   <h2 id="storyTitle"></h2>
+   <div class="story-role" id="storyRole"></div>
+   <div class="story-period" id="storyPeriod"></div>
+   <p id="storyDescription"></p>
+   <div class="story-block-label" id="storyResponsibilitiesLabel">ROLE &amp; RESPONSIBILITIES</div>
+   <ul id="storyResponsibilities" class="responsibilities"></ul>
+   <div id="storyRoleNotes" class="role-notes" hidden></div>
+   <div class="story-block-label">HIGHLIGHTS &amp; KEY WORK</div>
+   <ul id="storyBullets"></ul>
+   <div class="story-block-label">CONNECTED DISCIPLINES</div>
+   <div class="pills" id="storyDomains"></div>
+   <div class="story-block-label">TOOLS & THEMES</div>
+   <div class="pills muted" id="storyTools"></div>
+   <div class="story-card-footer"><button id="storyPrev">← Previous</button><button id="storyNext">Next chapter →</button></div>
+  </section>
+
+  <button class="vault-shortcut" id="vaultShortcut" aria-label="Open Experience, Education, Certifications and Skillset gallery">✧ <span>Explore experience · education · certifications · skills</span> <b>↗</b></button>
+
+  <section class="archive-overlay" id="archiveOverlay" aria-label="Experience, education, certifications and skillset" hidden>
+   <div class="archive-panel">
+    <div class="archive-head"><div><span class="archive-eyebrow">THE GEOVERSE COLLECTION</span><h2>Beyond the timeline<span>.</span></h2><p>Experience, education, CV-based qualifications, and the skills behind the work.</p></div><button id="archiveClose" aria-label="Close collection">×</button></div>
+    <div class="archive-tabs" role="tablist" aria-label="Career collection sections">
+     <button data-archive-tab="experience" role="tab" aria-selected="true">◎ Experience</button>
+     <button data-archive-tab="education" role="tab" aria-selected="false">◈ Education</button>
+     <button data-archive-tab="certifications" role="tab" aria-selected="false">✹ Certifications</button>
+     <button data-archive-tab="skills" role="tab" aria-selected="false">▥ Skillset</button>
+     <button data-archive-tab="impact" role="tab" aria-selected="false">✦ Knowledge &amp; impact</button>
+    </div>
+    <div id="archiveContent" class="archive-content" role="tabpanel"></div>
+    <div class="archive-foot"><span>Based on the supplied CV · Experience, education, certifications and skills are explorable.</span><button id="archiveDone">Return to GeoVerse ↗</button></div>
+   </div>
+  </section>
+
+  <aside class="mini-atlas" id="miniAtlas">
+   <div class="map-header"><div><span class="map-kicker">BIRD'S-EYE VIEW</span><strong>THE GEOVERSE MAP</strong></div><button id="expandMap" title="Toggle atlas view">⤢</button></div>
+   <canvas id="mapCanvas" width="430" height="215" role="img" aria-label="Interactive minimap with company and domain locations"></canvas>
+   <div class="map-legend"><span><i class="key career"></i> Career</span><span><i class="key worlds"></i> Worlds</span><span><i class="key you"></i> You</span></div>
+  </aside>
+
+  <div class="timeline-dock" id="timelineDock">
+    <div class="dock-heading"><div class="dock-label"><span class="tiny-star">✳</span> CAREER TIMELINE <span class="dock-separator"></span> <span id="dockCount">11 CHAPTERS</span></div><div class="dock-actions"><button id="prevBtn" aria-label="Previous chapter">←</button><button id="nextBtn" aria-label="Next chapter">→</button></div></div>
+    <div id="chapterRail" class="chapter-rail" aria-label="Select a career chapter"></div>
+  </div>
+
+  <div class="scene-controls" aria-label="Scene controls">
+    <button id="zoomInBtn" title="Zoom in" aria-label="Zoom in">+</button>
+    <button id="zoomOutBtn" title="Zoom out" aria-label="Zoom out">−</button>
+    <button id="resetCameraBtn" title="Reset camera" aria-label="Reset camera">⌖</button>
+    <button id="helpBtn" title="How to explore" aria-label="How to explore">?</button>
+  </div>
+
+  <div class="walk-hint" id="walkHint"><span>W A S D</span> MOVE <span class="hint-sep">/</span> DRAG TO LOOK <span class="hint-sep">/</span> CLICK A LANDMARK</div>
+
+  <section id="welcomeOverlay" class="welcome-overlay" aria-label="Welcome to the GeoVerse Journey">
+   <div class="welcome-visual"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="core-globe">✺</span><span class="orbit-dot one">✦</span><span class="orbit-dot two">✧</span></div>
+   <span class="welcome-eyebrow">WELCOME TO THE GEOVERSE JOURNEY</span>
+   <h2>Meet the world behind<br/><em>the work.</em></h2>
+   <p>Take a stroll through <strong>Faizan Tayyab's</strong> career, from early GIS and engineering to cloud platforms, data architecture and GeoAI. Every stop is a small world of its own.</p>
+   <div class="welcome-options"><button id="beginExplore" class="welcome-primary">Explore the world <span>↗</span></button><button id="beginTour" class="welcome-secondary">Take a guided tour <span>▷</span></button></div>
+   <div class="welcome-tips">12 TIMELINE CHAPTERS <span>✦</span> 6 DOMAIN WORLDS <span>✦</span> EXPERIENCE · CERTIFICATIONS · SKILLS</div>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <section class="help-overlay" id="helpOverlay" hidden aria-label="Navigation help">
+    <div class="help-box"><button id="helpClose" class="help-close" aria-label="Close help">×</button><span class="panel-overline">WELCOME EXPLORER</span><h2>Ways to explore</h2>
+      <div class="help-row"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>Walk your little explorer around the diorama</span></div>
+      <div class="help-row"><kbd>←</kbd><kbd>→</kbd><span>Travel to the previous or next chapter</span></div>
+      <div class="help-row"><span class="help-glyph">◎</span><span>Click a building or its label to travel there and read its story</span></div>
+      <div class="help-row"><span class="help-glyph">✦</span><span>Use the domain buttons to explore six connected worlds</span></div>
+      <div class="help-row"><kbd>M</kbd><span>Switch to the aerial atlas view</span></div>
+      <div class="help-row"><kbd>E</kbd><span>Interact with the red London telephone booth when nearby</span></div>
+      <div class="help-row"><span class="help-glyph">▣</span><span>Visit the CV Vault to explore experience, education, certifications, and technical skills</span></div>
+      <p>Tap a career chapter at the bottom, click on the map, or enjoy the guided tour. Every landmark is selectable.</p>
+      <button id="helpDone" class="welcome-primary">Let's go <span>→</span></button>
+    </div>
+  </section>
+
+  <nav id="mobileMenu" class="mobile-popover" hidden><button data-mobile="tour">Guided tour</button><button data-mobile="atlas">Atlas view</button><button data-mobile="worlds">Six worlds</button><button data-mobile="archive">Experience, education, certifications &amp; skills</button><button data-mobile="connect">Connect on LinkedIn</button></nav>
+
+  <div class="webgl-fallback" id="webglFallback" hidden>
+   <h2>The 3D world couldn't start</h2><p>WebGL needs an up-to-date browser and graphics support. Make sure the project is running through the Vite dev server with dependencies installed.</p>
+  </div>
+ </main>
+ <script type="module" src="/src/main.js"></script>
+</body>
+</html>
